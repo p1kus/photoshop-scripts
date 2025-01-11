@@ -1,27 +1,27 @@
 // target photoshop
 
 if (app.documents.length > 0) {
-  let doc = app.activeDocument;
-  app.documents.saveAs();
+  var doc = app.activeDocument;
 
-  const saveToPNG = () => {
-    let pngOptions = new PNGSaveOptions();
+  function saveToPNG(filePath) {
+    var pngOptions = new PNGSaveOptions();
     doc.saveAs(new File(filePath), pngOptions, true);
   };
-  const saveToPDF = () => {
-    let pdfOptions = new PDFSaveOptions();
+  function saveToPDF(filePath) {
+    var pdfOptions = new PDFSaveOptions();
     doc.saveAs(new File(filePath), pdfOptions, true);
+    alert("PDF")
   };
-  let path = doc.path();
-  let fileName = doc.name.replace(/\.[^\.]+$/, "");
+  var path = doc.path;
+  var fileName = doc.name.replace(/\.[^\.]+$/, "");
 
-  doc.saveToPNG(path + "/" + fileName + "_original");
-  doc.saveToPDF(path + "/" + fileName + "_original");
+  saveToPNG(path + "/" + fileName + "_original");
+  saveToPDF(path + "/" + fileName + "_original");
 
-  doc.flipHorizontal();
+  doc.flipCanvas(Direction.HORIZONTAL);
 
-  doc.saveToPNG(path + "/" + fileName + "_flipped");
-  doc.saveToPDF(path + "/" + fileName + "_flipped");
+  saveToPNG(path + "/" + fileName + "_flipped");
+  saveToPDF(path + "/" + fileName + "_flipped");
 } else {
   alert("No open document");
 }
